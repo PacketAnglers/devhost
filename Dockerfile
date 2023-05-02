@@ -44,6 +44,14 @@ COPY requirements.yml requirements.yml
 
 COPY hostnetconfig.sh /usr/local/bin/hostnetconfig.sh
 
+COPY pingcheck_vrf_a.sh /usr/local/bin/pingcheck_vrf_a.sh
+
+COPY ip_list_vrf_a /usr/local/bin/ip_list_vrf_a
+
+COPY pingcheck_vrf_b.sh /usr/local/bin/pingcheck_vrf_b.sh
+
+COPY ip_list_vrf_b /usr/local/bin/ip_list_vrf_b
+
 RUN pip3 install -r requirements.txt
 
 RUN ansible-galaxy collection install -r requirements.yml --force
