@@ -4,8 +4,11 @@ while [ "$1" != "" ]; do
     case $1 in
         -b | --bond )
             bond=true;;
-        -i | --ip )
-            ip=$2
+        -i4 | --ip4 )
+            ip4=$2
+            shift;;
+        -i6 | --ip6 )
+            ip6=$2
             shift;;
         -g | --gateway )
             gw=$2
@@ -15,7 +18,7 @@ while [ "$1" != "" ]; do
             shift;;
         --)
             break;;
-        *) 
+        *)
             printf "Unknown Option %s\n" "$1"
             exit 1
     esac
@@ -34,7 +37,8 @@ if $bond ; then
 
     ifconfig bond0 up
 
-    ip addr add $ip dev bond0
+    ip addr add $ip4 dev bond0
+    ip -6 addr add $ip6 dev bond0
     route add -net 10.0.0.0/8 dev bond0 gw $gw
     route add -net 224.0.0.0 netmask 240.0.0.0 gw $gw bond0
 
@@ -44,7 +48,8 @@ if $bond ; then
 
 else
 
-    ip addr add $ip dev eth1
+    ip addr add $ip4 dev eth1
+    ip -6 addr add $ip6 dev eth1
     ifconfig eth1 up
     route add -net 10.0.0.0/8 dev eth1 gw $gw
     route add -net 224.0.0.0 netmask 240.0.0.0 gw $gw eth1

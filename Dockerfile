@@ -44,13 +44,13 @@ COPY requirements.yml requirements.yml
 
 COPY hostnetconfig.sh /usr/local/bin/hostnetconfig.sh
 
-COPY pingcheck_vrf_a.sh /usr/local/bin/pingcheck_vrf_a.sh
+COPY pingcheckv4_vrf_prod.sh /usr/local/bin/pingcheckv4_vrf_prod.sh
 
-COPY ip_list_vrf_a /usr/local/bin/ip_list_vrf_a
+COPY ipv4_list_vrf_prod /usr/local/bin/ipv4_list_vrf_prod
 
-COPY pingcheck_vrf_b.sh /usr/local/bin/pingcheck_vrf_b.sh
+COPY pingcheckv4_vrf_dev.sh /usr/local/bin/pingcheckv4_vrf_dev.sh
 
-COPY ip_list_vrf_b /usr/local/bin/ip_list_vrf_b
+COPY ipv4_list_vrf_dev /usr/local/bin/ipv4_list_vrf_dev
 
 RUN pip3 install -r requirements.txt
 
