@@ -52,6 +52,22 @@ COPY pingcheckv4_vrf_dev.sh /usr/local/bin/pingcheckv4_vrf_dev.sh
 
 COPY ipv4_list_vrf_dev /usr/local/bin/ipv4_list_vrf_dev
 
+COPY pingcheckv6_vrf_prod.sh /usr/local/bin/pingcheckv6_vrf_prod.sh
+
+COPY ipv6_list_vrf_prod /usr/local/bin/ipv6_list_vrf_prod
+
+COPY pingcheckv6_vrf_dev.sh /usr/local/bin/pingcheckv6_vrf_dev.sh
+
+COPY ipv6_list_vrf_dev /usr/local/bin/ipv6_list_vrf_dev
+
+COPY pingcheck_dualstack_vrf_dev.sh /usr/local/bin/pingcheck_dualstack_vrf_dev.sh
+
+COPY dualstack_list_vrf_dev /usr/local/bin/dualstack_list_vrf_dev
+
+COPY pingcheck_dualstack_vrf_prod.sh /usr/local/bin/pingcheck_dualstack_vrf_prod.sh
+
+COPY dualstack_list_vrf_prod /usr/local/bin/dualstack_list_vrf_prod
+
 RUN pip3 install -r requirements.txt
 
 RUN ansible-galaxy collection install -r requirements.yml --force
