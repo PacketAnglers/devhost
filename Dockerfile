@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y \
     net-tools \
     netplan.io \
     openssh-server \
-    python3 \
+    python3-full \
     python3-pip \
     snapd \
     sudo \
@@ -68,7 +68,7 @@ COPY pingcheck_dualstack_vrf_prod.sh /usr/local/bin/pingcheck_dualstack_vrf_prod
 
 COPY dualstack_list_vrf_prod /usr/local/bin/dualstack_list_vrf_prod
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r requirements.txt  --break-system-packages
 
 RUN ansible-galaxy collection install -r requirements.yml --force
 
@@ -83,7 +83,7 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
 
 ENV SHELL /bin/zsh
 
-RUN useradd -rm -d /home/admin -s /bin/bash -g root -G sudo -u 1000 admin
+RUN useradd -rm -d /home/admin -s /bin/bash -g root -G sudo -u 1099 admin
 
 RUN echo admin:admin | chpasswd
 
