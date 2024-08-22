@@ -47,10 +47,13 @@ if $bond ; then # Create bond0
     ip route add 224.0.0.0/4 via $gw dev bond0
     ip -6 addr add $ip6 dev bond0
 
-elif $phone ; then # Create br0
+elif $phone ; then
+
+    # Create br0
+    ip link add name br0 type bridge
 
     # Set final 16bits of Bridge MAC to last 2 characters of hostname (i.e. Phone1 = e1, PhoneA = ea, Phone10 = 10)
-    ip link add br0 type bridge address 30:86:2d:00:00:$(hostname -s | tail -c 3)
+    ip link set br0 address 30:86:2d:00:00:$(hostname -s | tail -c 3)
 
     # Disable STP, provide add'l visibility
     ip link set br0 type bridge stp_state 0
@@ -65,7 +68,6 @@ elif $phone ; then # Create br0
     #sysctl net.ipv4.conf.br0.mc_forwarding=1
     #sysctl net.ipv6.conf.br0.mc_forwarding=1
     ip link set br0 type bridge mcast_stats_enabled 1
-    ip link set type bridge_slave mcast_flood on
 
     # Configure L3
     ip addr add $ip4 dev br0
@@ -75,8 +77,7 @@ elif $phone ; then # Create br0
 
     # Customize LLDP
     # lldpcli configure ports eth1,eth2,br0 lldp status rx-only
-    ### if
-    ### not done
+
 else
 
     # Set final 16bits of Bridge MAC to last 2 characters of hostname (i.e. HostA1 = a1, HostB1 = b1, HostC1 = c1)
